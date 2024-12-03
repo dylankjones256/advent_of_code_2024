@@ -26,13 +26,13 @@ fn calculate_distance(file_path: &str) -> Result<u64, Box<dyn Error>> {
     list_two.sort_unstable(); // this is faster and more memory efficient than sort()
 
     // use .copied() below so we get the actual value behind the &u32 reference provided by .iter()
-    // we would have to do dereferencing otherwise with * I think
+    // we would have to do dereferencing otherwise with * I think?
     let total_distance: u64 = list_one
-        .iter()
+        .iter() // these are lazy like Transformations in Spark
         .copied()
         .zip(list_two.iter().copied())
         .map(|(a, b)| u64::abs_diff(a as u64, b as u64))
-        .sum();
+        .sum(); // this is like an Action in Spark - it retrieves the end result of your chained commands via summarisation/collection etc
 
     Ok(total_distance)
 }
